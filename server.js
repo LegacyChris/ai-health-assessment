@@ -199,7 +199,13 @@ app.post('/api/assess', (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Health Assessment Server running on port ${PORT}`);
-  console.log(`Open http://localhost:${PORT} to access the application`);
-});
+// Only listen when running locally (not on Vercel)
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Health Assessment Server running on port ${PORT}`);
+    console.log(`Open http://localhost:${PORT} to access the application`);
+  });
+}
+
+// Export for Vercel
+module.exports = app;
